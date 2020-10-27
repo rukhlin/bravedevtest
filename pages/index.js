@@ -8,7 +8,12 @@ import {
     SubTitle,
 } from "../public/styles/cssComponents";
 
-const operatorsList = [
+type Operator = {
+    titel: string;
+    icon: string;
+};
+
+const operatorsList: Operator[] = [
     { title: "МТС", icon: "/images/MTS.png" },
     { title: "Билайн", icon: "/images/beeline.png" },
     { title: "Мегафон", icon: "/images/megafon.png" },
