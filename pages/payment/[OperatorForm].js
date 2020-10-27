@@ -1,4 +1,4 @@
-import Router, { useRouter } from "next/router";
+import Router, { useRouter, FC } from "next/router";
 import Head from "next/head";
 import {
     Label,
@@ -7,17 +7,20 @@ import {
     Button,
 } from "../../public/styles/cssComponents";
 
-export default function OperatorForm() {
+type ResponseType = { /* some type of response */ }
+
+export const OperatorForm:FC = () => {
     const router = useRouter();
     const { OperatorForm } = router.query;
 
-    const pay = (e) => {
+    const onPayClick = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
         const requestOptions = {
             method: "POST",
             body: new FormData(e.target),
         };
-        fetch("/api/payment", requestOptions).then(async (response) => {
+        // interaction with api is better to move to other modules
+        fetch("/api/payment", requestOptions).then(async (response: ResponseType) => {
             const json = await response.json();
             alert(json.title);
             if (response.ok) Router.back();
@@ -43,7 +46,7 @@ export default function OperatorForm() {
                     >
                         Назад
                     </Button>
-                    <form onSubmit={pay}>
+                    <form onSubmit={onPayClick}>
                         <Label htmlFor="customerOperator">
                             Ваш выбранный оператор
                         </Label>
@@ -112,3 +115,5 @@ export default function OperatorForm() {
         </div>
     );
 }
+
+export default OperatorForm
